@@ -17,7 +17,7 @@ const SkeletonCard = () => (
     </div>
 );
 
-export default function PaletteGrid({ palettes, loading, onDelete, onCopy }) {
+export default function PaletteGrid({ palettes, loading, onDeleteRequest, onCopy }) {
     if (loading) {
         return (
             <div className="palette-grid">
@@ -53,7 +53,7 @@ export default function PaletteGrid({ palettes, loading, onDelete, onCopy }) {
                         key={`${palette.name}-${index}`}
                         palette={palette}
                         index={index}
-                        onDelete={onDelete}
+                        onDeleteRequest={onDeleteRequest}
                         onCopy={onCopy}
                     />
                 ))}

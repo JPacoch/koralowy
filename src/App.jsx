@@ -6,10 +6,12 @@ import { useLenis } from './hooks/useLenis';
 import { useToast } from './hooks/useToast';
 import PaletteGrid from './components/PaletteGrid';
 import AddPaletteModal from './components/AddPaletteModal';
+import DeleteConfirmModal from './components/DeleteConfirmModal';
 
 export default function App() {
     const [theme, setTheme] = useState('dark');
     const [modalOpen, setModalOpen] = useState(false);
+    const [pendingDelete, setPendingDelete] = useState(null); // { palette, index }
     const { palettes, loading, error, addPalette, deletePalette, exportPalettes, importPalettes } = usePalettes();
     const { showToast, ToastContainer } = useToast();
     const importRef = useRef(null);
@@ -27,6 +29,25 @@ export default function App() {
     const handleCopy = useCallback((hex, color) => {
         showToast(hex, color);
     }, [showToast]);
+
+    const handleDeleteRequest = useCallback((palette, index) => {
+        setPendingDelete({ palette, index });
+    }, []);
+
+    const handleDeleteConfirm = useCallback(async () => {
+        if (!pendingDelete) return;
+        try {
+            await deletePalette(pendingDelete.index);
+        } catch {
+            showToast('Delete failed', '#f87272');
+        } finally {
+            setPendingDelete(null);
+        }
+    }, [pendingDelete, deletePalette, showToast]);
+
+    const handleDeleteCancel = useCallback(() => {
+        setPendingDelete(null);
+    }, []);
 
     const handleImport = useCallback(async (e) => {
         const file = e.target.files?.[0];
@@ -179,10 +200,17 @@ export default function App() {
                 <PaletteGrid
                     palettes={palettes}
                     loading={loading}
-                    onDelete={deletePalette}
+                    onDeleteRequest={handleDeleteRequest}
                     onCopy={handleCopy}
                 />
             </main>
+
+            {/* Delete confirmation modal */}
+            <DeleteConfirmModal
+                palette={pendingDelete?.palette ?? null}
+                onConfirm={handleDeleteConfirm}
+                onCancel={handleDeleteCancel}
+            />
 
             {/* Add palette modal */}
             <AddPaletteModal

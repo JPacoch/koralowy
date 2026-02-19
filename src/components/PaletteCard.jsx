@@ -1,18 +1,8 @@
-import { useRef, useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { Copy, Trash2 } from 'lucide-react';
 
-function getContrastColor(hex) {
-    const r = parseInt(hex.slice(1, 3), 16);
-    const g = parseInt(hex.slice(3, 5), 16);
-    const b = parseInt(hex.slice(5, 7), 16);
-    const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-    return luminance > 0.55 ? 'rgba(0,0,0,0.75)' : 'rgba(255,255,255,0.9)';
-}
-
 function Swatch({ color, onCopy }) {
-    const [hovered, setHovered] = useState(false);
-
     const handleCopy = useCallback((e) => {
         e.stopPropagation();
         navigator.clipboard.writeText(color).catch(() => { });
@@ -23,8 +13,6 @@ function Swatch({ color, onCopy }) {
         <div
             className="swatch"
             style={{ background: color }}
-            onMouseEnter={() => setHovered(true)}
-            onMouseLeave={() => setHovered(false)}
         >
             <button
                 className="swatch-copy-btn"
@@ -51,18 +39,11 @@ const cardVariants = {
     },
 };
 
-export default function PaletteCard({ palette, index, onDelete, onCopy }) {
-    const [confirmDelete, setConfirmDelete] = useState(false);
-
+export default function PaletteCard({ palette, index, onDeleteRequest, onCopy }) {
     const handleDelete = useCallback((e) => {
         e.stopPropagation();
-        if (confirmDelete) {
-            onDelete(index);
-        } else {
-            setConfirmDelete(true);
-            setTimeout(() => setConfirmDelete(false), 2000);
-        }
-    }, [confirmDelete, index, onDelete]);
+        onDeleteRequest(palette, index);
+    }, [palette, index, onDeleteRequest]);
 
     return (
         <motion.article
@@ -71,7 +52,6 @@ export default function PaletteCard({ palette, index, onDelete, onCopy }) {
             initial="hidden"
             animate="visible"
             layout
-            style={{ '--card-index': index }}
         >
             <div className="swatch-strip" aria-label={`${palette.name} color palette`}>
                 {palette.colors.map((color, i) => (
@@ -92,9 +72,8 @@ export default function PaletteCard({ palette, index, onDelete, onCopy }) {
                     <button
                         className="card-delete-btn"
                         onClick={handleDelete}
-                        title={confirmDelete ? 'Click again to confirm' : 'Delete palette'}
+                        title="Delete palette"
                         aria-label="Delete palette"
-                        style={confirmDelete ? { opacity: 1, color: 'var(--danger)' } : {}}
                     >
                         <Trash2 size={13} />
                     </button>
