@@ -1,0 +1,109 @@
+[
+  {
+    "name": "irish soil",
+    "colors": [
+      "#cf8852",
+      "#e8e7e3",
+      "#525333"
+    ]
+  },
+  {
+    "name": "warm browns",
+    "colors": [
+      "#c84204",
+      "#ffed7f",
+      "#6d310a"
+    ]
+  },
+  {
+    "name": "rose green",
+    "colors": [
+      "#383e14",
+      "#863433",
+      "#f2bbc1"
+    ]
+  },
+  {
+    "name": "orange blues",
+    "colors": [
+      "#ef8f00",
+      "#0038bc",
+      "#eeeeee"
+    ]
+  },
+  {
+    "name": "paprika hungarian",
+    "colors": [
+      "#72891b",
+      "#cb2602",
+      "#f8d78f"
+    ]
+  },
+  {
+    "name": "greek sand",
+    "colors": [
+      "#f7e5c1",
+      "#b7a85c",
+      "#1c393f"
+    ]
+  },
+  {
+    "name": "fiery reds",
+    "colors": [
+      "#f38505",
+      "#e52e01",
+      "#fffde1"
+    ]
+  },
+  {
+    "name": "summer cream",
+    "colors": [
+      "#bf7e47",
+      "#fbedd6",
+      "#97c6e8"
+    ]
+  },
+  {
+    "name": "violet spring",
+    "colors": [
+      "#8f9d68",
+      "#fff8eb",
+      "#7b57ce"
+    ]
+  },
+  {
+    "name": "punchy blues",
+    "colors": [
+      "#b9c7f8",
+      "#0d21a5",
+      "#d1d067"
+    ]
+  },
+  {
+    "name": "morning breakfast",
+    "colors": [
+      "#576238",
+      "#ffd95d",
+      "#f0eadc"
+    ]
+  },
+  {
+    "name": "Test Aurora",
+    "colors": [
+      "#8b6fff",
+      "#c47fff",
+      "#4ade80",
+      "#c68485"
+    ]
+  },
+  {
+    "name": "megan",
+    "colors": [
+      "#8b6fff",
+      "#c47fff",
+      "#4ade80",
+      "#6db491",
+      "#9f7108"
+    ]
+  }
+]
